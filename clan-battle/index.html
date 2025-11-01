@@ -27,9 +27,8 @@
 <meta property="og:description" content="&#x2F;* 亮色主题 *&#x2F;   :root{     --bg:#f6f7fb;     --card:#ffffff;     --ink:#111111;     --muted:#8a8f98;     --line:#e5e7eb;     --accent:#111111;     --accent-light:#4a90e2;     --grid-bg:#fafafa;     -">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://xishuchkuii.github.io/images/star1.png">
-<meta property="og:image" content="https://xishuchkuii.github.io/clan-battle/$%7Burl%7D">
-<meta property="article:published_time" content="2025-11-01T11:56:08.676Z">
-<meta property="article:modified_time" content="2025-11-01T11:56:08.676Z">
+<meta property="article:published_time" content="2025-11-01T12:33:04.905Z">
+<meta property="article:modified_time" content="2025-11-01T12:33:04.905Z">
 <meta property="article:author" content="Dumplings">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://xishuchkuii.github.io/images/star1.png">
@@ -844,7 +843,6 @@
     const card = document.getElementById("capture");
     const toolbar = document.querySelector(".toolbar");
     const indicators = document.querySelectorAll('.status-indicator');
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     // 显示加载提示
     const loadingDiv = document.createElement('div');
@@ -871,75 +869,29 @@
         const now = new Date();
         const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
 
-        if (isMobile) {
-          // 移动端：转换为 blob 并在新窗口显示
-          canvas.toBlob(blob => {
-            if (!blob) {
-              throw new Error('图片生成失败');
-            }
-            const url = URL.createObjectURL(blob);
-
-            // 尝试打开新窗口
-            const newWindow = window.open('', '_blank');
-            if (newWindow) {
-              newWindow.document.write(`
-                <!DOCTYPE html>
-                <html>
-                <head>
-                  <meta charset="UTF-8">
-                  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-                  <title>家族战排表_${dateStr}</title>
-                  <style>
-                    *{margin:0;padding:0;box-sizing:border-box;}
-                    body{background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:15px;}
-                    img{max-width:100%;height:auto;border-radius:8px;box-shadow:0 4px 20px rgba(255,255,255,0.1);}
-                    .tip{color:#fff;margin-top:15px;text-align:center;font-size:14px;font-family:-apple-system,sans-serif;line-height:1.6;}
-                    .tip strong{color:#60a5fa;display:block;margin-bottom:5px;}
-                  </style>
-                </head>
-                <body>
-                  <img src="${url}" srcset="/img/loading.gif" lazyload alt="家族战排表_${dateStr}">
-                  <div class="tip">
-                    <strong>📱 保存图片</strong>
-                    长按图片 → 保存到相册
-                  </div>
-                </body>
-                </html>
-              `);
-              newWindow.document.close();
-            } else {
-              // 如果无法打开新窗口，尝试直接下载
-              const link = document.createElement("a");
-              link.download = `家族战排表_${dateStr}.png`;
-              link.href = url;
-              link.click();
-            }
-
-            // 清理
-            const loading = document.getElementById('loading-indicator');
-            if (loading) loading.remove();
-            toolbar.style.display = "flex";
-            indicators.forEach(ind => ind.style.display = 'inline-block');
-          }, 'image/png', 0.95);
-        } else {
-          // 桌面端：直接下载
-          try {
-            const link = document.createElement("a");
-            link.download = `家族战排表_${dateStr}.png`;
-            link.href = canvas.toDataURL("image/png", 0.95);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            // 清理
-            const loading = document.getElementById('loading-indicator');
-            if (loading) loading.remove();
-            toolbar.style.display = "flex";
-            indicators.forEach(ind => ind.style.display = 'inline-block');
-          } catch (e) {
-            throw new Error('下载失败: ' + e.message);
+        // 统一使用直接下载方式（桌面端和移动端）
+        canvas.toBlob(blob => {
+          if (!blob) {
+            throw new Error('图片生成失败');
           }
-        }
+
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.download = `家族战排表_${dateStr}.png`;
+          link.href = url;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+
+          // 延迟释放 URL
+          setTimeout(() => URL.revokeObjectURL(url), 100);
+
+          // 清理
+          const loading = document.getElementById('loading-indicator');
+          if (loading) loading.remove();
+          toolbar.style.display = "flex";
+          indicators.forEach(ind => ind.style.display = 'inline-block');
+        }, 'image/png', 0.95);
       }).catch(error => {
         console.error('生成图片失败:', error);
         const loading = document.getElementById('loading-indicator');
