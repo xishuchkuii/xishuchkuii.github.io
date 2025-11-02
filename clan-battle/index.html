@@ -26,12 +26,12 @@
 <meta property="og:site_name" content="Dumplings_King">
 <meta property="og:description" content="&#x2F;* 亮色主题 *&#x2F;   :root{     --bg:#f6f7fb;     --card:#ffffff;     --ink:#111111;     --muted:#8a8f98;     --line:#e5e7eb;     --accent:#111111;     --accent-light:#4a90e2;     --grid-bg:#fafafa;     -">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://xishuchkuii.github.io/images/star1.svg">
-<meta property="article:published_time" content="2025-11-02T05:28:12.482Z">
-<meta property="article:modified_time" content="2025-11-02T05:28:12.482Z">
+<meta property="og:image" content="https://xishuchkuii.github.io/images/star1.png">
+<meta property="article:published_time" content="2025-11-02T05:44:04.970Z">
+<meta property="article:modified_time" content="2025-11-02T05:44:04.970Z">
 <meta property="article:author" content="Dumplings">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://xishuchkuii.github.io/images/star1.svg">
+<meta name="twitter:image" content="https://xishuchkuii.github.io/images/star1.png">
   
   
   
@@ -317,7 +317,7 @@
   /* 编辑模式 */
   .edit-mode .grid .cell:not(.tag){border-color:var(--accent-light); background:var(--card);}
   .edit-mode-indicator{
-    position:fixed; top:20px; left:50%; transform:translateX(-50%);
+    position:fixed; top:80px; left:50%; transform:translateX(-50%);
     background:var(--accent-light); color:#fff; padding:8px 16px;
     border-radius:20px; font-weight:600; font-size:14px;
     box-shadow:0 4px 12px rgba(0,0,0,0.15);
@@ -333,6 +333,107 @@
   .status-indicator.active{background:var(--progress-active);}
   .status-indicator.complete{background:var(--progress-complete);}
   @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:0.5;}}
+
+  /* 手机端响应式布局 */
+  @media (max-width: 768px) {
+    .clan-battle-container{
+      font-size:13px;
+      padding:10px 0;
+    }
+    .wrap{width:98vw;}
+    .card{
+      padding:15px 12px 12px;
+      border-radius:12px;
+    }
+
+    /* 工具栏移到顶部，三个按钮并排 */
+    .toolbar{
+      position:relative;
+      top:0;
+      right:0;
+      margin-bottom:12px;
+      justify-content:center;
+      gap:6px;
+    }
+    .btn{
+      padding:8px 10px;
+      font-size:12px;
+      flex:1;
+      max-width:80px;
+    }
+    .theme-toggle{
+      width:36px;
+      height:36px;
+      font-size:16px;
+      flex:0 0 36px;
+    }
+
+    /* 头部优化 */
+    .header{margin-bottom:12px;}
+    .logo{width:22px; height:30px;}
+    .title{font-size:18px;}
+    .vs-row{gap:6px; margin-top:4px;}
+    .vs-row .name{font-size:18px;}
+    .vs{font-size:14px; margin:0 3px;}
+    .date{font-size:13px; margin-top:3px;}
+
+    /* 编辑模式指示器优化 */
+    .edit-mode-indicator{
+      top:60px;
+      font-size:11px;
+      padding:6px 12px;
+      white-space:nowrap;
+    }
+
+    /* 战斗区域 */
+    .section{margin-top:14px;}
+    .sec-head{gap:6px;}
+    .badge{width:20px; height:20px; font-size:11px; border-width:1.5px;}
+    .sec-name{font-size:15px;}
+    .sec-time{font-size:15px;}
+    .bar{margin:6px 0 5px; height:6px;}
+
+    /* 网格垂直布局 - 仅在手机端显示时使用 */
+    .grid{
+      display:block;
+      padding:8px;
+      border-radius:8px;
+      font-size:11px;
+    }
+    .grid .cell{
+      display:inline-block;
+      padding:5px 8px;
+      border-radius:6px;
+      font-size:11px;
+      margin:3px;
+      min-width:70px;
+    }
+    .grid .tag{
+      display:block;
+      font-weight:700;
+      margin:8px 3px 3px;
+      background:transparent !important;
+      border:none !important;
+      padding:0 !important;
+    }
+    .grid .tag:first-child{
+      margin-top:3px;
+    }
+
+    .divider{margin:12px 0;}
+  }
+
+  /* 打印和导出图片时保持原始网格布局 */
+  @media print, (min-width: 10000px) {
+    .grid{
+      display:grid !important;
+      grid-template-columns:120px 1fr 1fr 1fr !important;
+    }
+    .grid .cell{
+      display:block !important;
+      margin:0 !important;
+    }
+  }
 </style>
 
 <div class="clan-battle-container">
@@ -348,7 +449,7 @@
 
       <header class="header">
         <div class="brand">
-          <img src="/images/star1.svg" srcset="/img/loading.gif" lazyload alt="图标" class="logo">
+          <img src="/images/star1.png" srcset="/img/loading.gif" lazyload alt="图标" class="logo">
           <div class="title">家族战</div>
         </div>
         <div class="vs-row">
@@ -676,21 +777,97 @@
     const card = document.getElementById("capture");
     const toolbar = document.querySelector(".toolbar");
     const indicators = document.querySelectorAll('.status-indicator');
+    const editIndicator = document.getElementById('edit-indicator');
+    const grids = document.querySelectorAll('.grid');
 
+    // 隐藏工具栏和指示器
     toolbar.style.display = "none";
     indicators.forEach(ind => ind.style.display = 'none');
+    if (editIndicator) editIndicator.style.display = 'none';
 
-    html2canvas(card, { scale: 2, backgroundColor: currentTheme === 'dark' ? '#1e293b' : '#ffffff' }).then(canvas => {
-      const link = document.createElement("a");
-      const now = new Date();
-      const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
-      link.download = `家族战排表_${dateStr}.png`;
-      link.href = canvas.toDataURL("image/png");
-      link.click();
+    // 临时切换到桌面网格布局
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+      grids.forEach(grid => {
+        grid.style.display = 'grid';
+        grid.style.gridTemplateColumns = '120px 1fr 1fr 1fr';
+        const cells = grid.querySelectorAll('.cell');
+        cells.forEach(cell => {
+          cell.style.display = 'block';
+          cell.style.margin = '0';
+        });
+      });
+    }
 
-      toolbar.style.display = "flex";
-      indicators.forEach(ind => ind.style.display = 'inline-block');
-    });
+    // 生成图片
+    setTimeout(() => {
+      html2canvas(card, {
+        scale: 2,
+        backgroundColor: currentTheme === 'dark' ? '#1e293b' : '#ffffff',
+        useCORS: true,
+        allowTaint: false,
+        logging: false
+      }).then(canvas => {
+        const now = new Date();
+        const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+
+        canvas.toBlob(blob => {
+          if (!blob) {
+            alert('图片生成失败，请重试');
+            return;
+          }
+
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.download = `家族战排表_${dateStr}.png`;
+          link.href = url;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+
+          setTimeout(() => URL.revokeObjectURL(url), 100);
+
+          // 恢复显示
+          toolbar.style.display = "flex";
+          indicators.forEach(ind => ind.style.display = 'inline-block');
+          if (editIndicator) editIndicator.style.display = 'block';
+
+          // 恢复手机端布局
+          if (isMobile) {
+            grids.forEach(grid => {
+              grid.style.display = '';
+              grid.style.gridTemplateColumns = '';
+              const cells = grid.querySelectorAll('.cell');
+              cells.forEach(cell => {
+                cell.style.display = '';
+                cell.style.margin = '';
+              });
+            });
+          }
+        }, 'image/png', 0.95);
+      }).catch(error => {
+        console.error('生成图片失败:', error);
+        alert('生成图片失败，请重试');
+
+        // 恢复显示
+        toolbar.style.display = "flex";
+        indicators.forEach(ind => ind.style.display = 'inline-block');
+        if (editIndicator) editIndicator.style.display = 'block';
+
+        // 恢复手机端布局
+        if (isMobile) {
+          grids.forEach(grid => {
+            grid.style.display = '';
+            grid.style.gridTemplateColumns = '';
+            const cells = grid.querySelectorAll('.cell');
+            cells.forEach(cell => {
+              cell.style.display = '';
+              cell.style.margin = '';
+            });
+          });
+        }
+      });
+    }, 100);
   }
 
   // ==================== 启动应用 ====================
