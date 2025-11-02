@@ -26,8 +26,8 @@
 <meta property="og:site_name" content="Dumplings_King">
 <meta property="og:description" content="&#x2F;* &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CSS 变量主题系统 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; *&#x2F;     :root {       --bg: #f8fafc;       --card: #ffffff;       --ink: #0f172a;       --muted: #64748b;       --line: #e2e8f0;       --accent: #667eea;">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-11-02T11:06:55.961Z">
-<meta property="article:modified_time" content="2025-11-02T11:06:55.961Z">
+<meta property="article:published_time" content="2025-11-02T11:12:51.732Z">
+<meta property="article:modified_time" content="2025-11-02T11:12:51.732Z">
 <meta property="article:author" content="Dumplings">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -443,6 +443,11 @@
       border: 2px solid rgba(255, 255, 255, 0.3);
       transition: var(--transition);
       text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      word-break: keep-all;
+      white-space: nowrap;
+      max-width: 350px;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .clan-name.editable {
@@ -844,13 +849,23 @@
       }
 
       .clan-name {
-        font-size: 24px;
-        padding: 8px 20px;
+        font-size: 20px;
+        padding: 8px 16px;
+        max-width: 140px;
+        word-break: keep-all;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .vs {
-        font-size: 20px;
-        margin: 0 8px;
+        font-size: 18px;
+        margin: 0 6px;
+        flex-shrink: 0;
+      }
+
+      .vs-row {
+        gap: 8px;
       }
 
       .date-display {
@@ -951,6 +966,21 @@
         width: 40px;
         height: 40px;
         font-size: 18px;
+      }
+
+      .clan-name {
+        font-size: 18px;
+        padding: 6px 12px;
+        max-width: 120px;
+      }
+
+      .vs {
+        font-size: 16px;
+        margin: 0 4px;
+      }
+
+      .vs-row {
+        gap: 6px;
       }
     }
 
