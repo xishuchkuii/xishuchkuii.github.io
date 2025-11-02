@@ -27,8 +27,8 @@
 <meta property="og:description" content="&#x2F;* 亮色主题 *&#x2F;   :root{     --bg:#f6f7fb;     --card:#ffffff;     --ink:#111111;     --muted:#8a8f98;     --line:#e5e7eb;     --accent:#111111;     --accent-light:#4a90e2;     --grid-bg:#fafafa;     -">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://xishuchkuii.github.io/images/star1.png">
-<meta property="article:published_time" content="2025-11-02T05:44:04.970Z">
-<meta property="article:modified_time" content="2025-11-02T05:44:04.970Z">
+<meta property="article:published_time" content="2025-11-02T05:51:21.054Z">
+<meta property="article:modified_time" content="2025-11-02T05:51:21.054Z">
 <meta property="article:author" content="Dumplings">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://xishuchkuii.github.io/images/star1.png">
@@ -424,7 +424,7 @@
   }
 
   /* 打印和导出图片时保持原始网格布局 */
-  @media print, (min-width: 10000px) {
+  @media print {
     .grid{
       display:grid !important;
       grid-template-columns:120px 1fr 1fr 1fr !important;
@@ -433,6 +433,27 @@
       display:block !important;
       margin:0 !important;
     }
+  }
+
+  /* 导出模式 - 强制使用桌面布局 */
+  .export-mode .grid{
+    display:grid !important;
+    grid-template-columns:120px 1fr 1fr 1fr !important;
+    gap:12px !important;
+    padding:10px 12px !important;
+  }
+  .export-mode .grid .cell{
+    display:block !important;
+    margin:0 !important;
+    padding:6px 10px !important;
+    min-width:auto !important;
+  }
+  .export-mode .grid .tag{
+    display:block !important;
+    background:var(--cell-bg) !important;
+    border:1px solid var(--line) !important;
+    padding:6px 10px !important;
+    margin:0 !important;
   }
 </style>
 
@@ -778,26 +799,14 @@
     const toolbar = document.querySelector(".toolbar");
     const indicators = document.querySelectorAll('.status-indicator');
     const editIndicator = document.getElementById('edit-indicator');
-    const grids = document.querySelectorAll('.grid');
 
     // 隐藏工具栏和指示器
     toolbar.style.display = "none";
     indicators.forEach(ind => ind.style.display = 'none');
     if (editIndicator) editIndicator.style.display = 'none';
 
-    // 临时切换到桌面网格布局
-    const isMobile = window.innerWidth <= 768;
-    if (isMobile) {
-      grids.forEach(grid => {
-        grid.style.display = 'grid';
-        grid.style.gridTemplateColumns = '120px 1fr 1fr 1fr';
-        const cells = grid.querySelectorAll('.cell');
-        cells.forEach(cell => {
-          cell.style.display = 'block';
-          cell.style.margin = '0';
-        });
-      });
-    }
+    // 添加导出模式类，强制使用桌面布局
+    card.classList.add('export-mode');
 
     // 生成图片
     setTimeout(() => {
@@ -806,7 +815,9 @@
         backgroundColor: currentTheme === 'dark' ? '#1e293b' : '#ffffff',
         useCORS: true,
         allowTaint: false,
-        logging: false
+        logging: false,
+        width: card.scrollWidth,
+        height: card.scrollHeight
       }).then(canvas => {
         const now = new Date();
         const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
@@ -814,6 +825,11 @@
         canvas.toBlob(blob => {
           if (!blob) {
             alert('图片生成失败，请重试');
+            // 恢复
+            card.classList.remove('export-mode');
+            toolbar.style.display = "flex";
+            indicators.forEach(ind => ind.style.display = 'inline-block');
+            if (editIndicator) editIndicator.style.display = 'block';
             return;
           }
 
@@ -828,44 +844,20 @@
           setTimeout(() => URL.revokeObjectURL(url), 100);
 
           // 恢复显示
+          card.classList.remove('export-mode');
           toolbar.style.display = "flex";
           indicators.forEach(ind => ind.style.display = 'inline-block');
           if (editIndicator) editIndicator.style.display = 'block';
-
-          // 恢复手机端布局
-          if (isMobile) {
-            grids.forEach(grid => {
-              grid.style.display = '';
-              grid.style.gridTemplateColumns = '';
-              const cells = grid.querySelectorAll('.cell');
-              cells.forEach(cell => {
-                cell.style.display = '';
-                cell.style.margin = '';
-              });
-            });
-          }
         }, 'image/png', 0.95);
       }).catch(error => {
         console.error('生成图片失败:', error);
         alert('生成图片失败，请重试');
 
         // 恢复显示
+        card.classList.remove('export-mode');
         toolbar.style.display = "flex";
         indicators.forEach(ind => ind.style.display = 'inline-block');
         if (editIndicator) editIndicator.style.display = 'block';
-
-        // 恢复手机端布局
-        if (isMobile) {
-          grids.forEach(grid => {
-            grid.style.display = '';
-            grid.style.gridTemplateColumns = '';
-            const cells = grid.querySelectorAll('.cell');
-            cells.forEach(cell => {
-              cell.style.display = '';
-              cell.style.margin = '';
-            });
-          });
-        }
       });
     }, 100);
   }
