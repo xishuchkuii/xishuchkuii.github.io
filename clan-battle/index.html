@@ -19,19 +19,17 @@
   <meta name="author" content="Dumplings">
   <meta name="keywords" content="">
   
-    <meta name="description" content="&#x2F;* 亮色主题 *&#x2F;   :root{     --bg:#f6f7fb;     --card:#ffffff;     --ink:#111111;     --muted:#8a8f98;     --line:#e5e7eb;     --accent:#111111;     --accent-light:#4a90e2;     --grid-bg:#fafafa;     -">
+    <meta name="description" content="&#x2F;* &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CSS 变量主题系统 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; *&#x2F;     :root {       --bg: #f8fafc;       --card: #ffffff;       --ink: #0f172a;       --muted: #64748b;       --line: #e2e8f0;       --accent: #667eea;">
 <meta property="og:type" content="website">
 <meta property="og:title" content="族战排表">
 <meta property="og:url" content="https://xishuchkuii.github.io/clan-battle/index.html">
 <meta property="og:site_name" content="Dumplings_King">
-<meta property="og:description" content="&#x2F;* 亮色主题 *&#x2F;   :root{     --bg:#f6f7fb;     --card:#ffffff;     --ink:#111111;     --muted:#8a8f98;     --line:#e5e7eb;     --accent:#111111;     --accent-light:#4a90e2;     --grid-bg:#fafafa;     -">
+<meta property="og:description" content="&#x2F;* &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; CSS 变量主题系统 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; *&#x2F;     :root {       --bg: #f8fafc;       --card: #ffffff;       --ink: #0f172a;       --muted: #64748b;       --line: #e2e8f0;       --accent: #667eea;">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://xishuchkuii.github.io/images/star1.png">
-<meta property="article:published_time" content="2025-11-02T05:51:21.054Z">
-<meta property="article:modified_time" content="2025-11-02T05:51:21.054Z">
+<meta property="article:published_time" content="2025-11-02T10:58:37.557Z">
+<meta property="article:modified_time" content="2025-11-02T10:58:37.557Z">
 <meta property="article:author" content="Dumplings">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://xishuchkuii.github.io/images/star1.png">
   
   
   
@@ -224,647 +222,1316 @@
 
 <article class="page-content">
   
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
 <style>
-  /* 亮色主题 */
-  :root{
-    --bg:#f6f7fb;
-    --card:#ffffff;
-    --ink:#111111;
-    --muted:#8a8f98;
-    --line:#e5e7eb;
-    --accent:#111111;
-    --accent-light:#4a90e2;
-    --grid-bg:#fafafa;
-    --cell-bg:#fff;
-    --radius:24px;
-    --progress-active:#4a90e2;
-    --progress-complete:#10b981;
-    --progress-pending:#e5e7eb;
-  }
-  /* 暗色主题 */
-  [data-theme="dark"]{
-    --bg:#0f172a;
-    --card:#1e293b;
-    --ink:#f1f5f9;
-    --muted:#94a3b8;
-    --line:#334155;
-    --accent:#f1f5f9;
-    --accent-light:#60a5fa;
-    --grid-bg:#0f172a;
-    --cell-bg:#1e293b;
-    --progress-active:#60a5fa;
-    --progress-complete:#34d399;
-    --progress-pending:#334155;
-  }
-  .clan-battle-container *{box-sizing:border-box}
-  .clan-battle-container{
-    background:var(--bg);
-    color:var(--ink);
-    font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Inter,'Noto Sans SC',"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-    padding:20px 0;
-    margin: 0 auto;
-  }
-  .wrap{width:min(920px,94vw); position:relative; margin: 0 auto;}
-  .card{position:relative; background:var(--card); border-radius:var(--radius); box-shadow:0 10px 30px rgba(0,0,0,.06); padding:28px; transition:all 0.3s ease;}
-  .header{margin-bottom:20px}
-  .brand{display:flex; align-items:center; gap:12px;}
-  .logo{width:35px; height:45px; flex:0 0 auto; margin-right:2px;}
-  .title{font-size:28px; font-weight:800;}
-  .vs-row{display:flex; align-items:baseline; flex-wrap:wrap; gap:12px; margin-top:8px;}
-  .vs-row .name{font-size:28px; font-weight:800}
-  .vs{font-size:22px; font-weight:900; margin:0 6px;}
-  .date{font-size:18px; color:var(--muted); margin-top:6px}
-  .section{margin-top:24px; position:relative;}
-  .sec-head{display:flex; align-items:center; gap:12px; font-weight:800;}
-  .badge{display:inline-grid; place-items:center; width:26px; height:26px; border-radius:999px; border:2px solid var(--ink); font-size:14px; font-weight:800}
-  .sec-name{font-size:22px}
-  .sec-time{margin-left:auto; font-size:22px; font-weight:800}
-  .bar{margin:10px 0 8px; height:10px; background:var(--progress-pending); border-radius:999px; overflow:hidden; position:relative;}
-  .bar > i{display:block; height:100%; background:var(--progress-active); transition:width 0.5s ease, background-color 0.3s ease;}
-  .bar > i.complete{background:var(--progress-complete)}
-  .grid{display:grid; grid-template-columns:120px 1fr 1fr 1fr; gap:12px; padding:10px 12px; border:1px solid var(--line); border-radius:14px; background:var(--grid-bg); transition:all 0.3s ease;}
-  .grid .cell{padding:6px 10px; border-radius:10px; background:var(--cell-bg); border:1px solid var(--line); text-align:left; transition:all 0.3s ease;}
-  .grid .cell.editable{cursor:pointer; position:relative;}
-  .grid .cell.editable:hover{border-color:var(--accent-light); box-shadow:0 0 0 2px rgba(74,144,226,0.1);}
-  .grid .cell input{width:100%; border:none; background:transparent; color:var(--ink); font:inherit; outline:none; padding:0;}
-  .grid .tag{font-weight:700;}
-  .grid .muted{color:var(--muted)}
-  .centered{grid-column:span 3; text-align:center !important;}
-  .divider{height:1px; background:var(--line); margin:20px 0}
-  @media print{body{background:#fff} .card{box-shadow:none} .toolbar{display:none !important;}}
-
-  /* 工具栏 */
-  .toolbar{
-    position:absolute; top:12px; right:12px;
-    display:flex; gap:8px; align-items:center;
-  }
-  .btn{
-    padding:6px 12px; border:none; border-radius:8px;
-    background:var(--accent); color:var(--card); cursor:pointer; font-size:14px;
-    transition:all 0.2s ease; font-weight:600;
-  }
-  .btn:hover{opacity:0.85; transform:translateY(-1px);}
-  .btn.secondary{background:var(--accent-light);}
-  .theme-toggle{
-    width:40px; height:40px; border-radius:50%;
-    background:var(--accent); color:var(--card);
-    border:none; cursor:pointer; font-size:18px;
-    display:grid; place-items:center;
-    transition:all 0.2s ease;
-  }
-  .theme-toggle:hover{transform:rotate(20deg) scale(1.05);}
-
-  /* 编辑模式 */
-  .edit-mode .grid .cell:not(.tag){border-color:var(--accent-light); background:var(--card);}
-  .edit-mode-indicator{
-    position:fixed; top:80px; left:50%; transform:translateX(-50%);
-    background:var(--accent-light); color:#fff; padding:8px 16px;
-    border-radius:20px; font-weight:600; font-size:14px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.15);
-    z-index:1000; animation:slideDown 0.3s ease;
-  }
-  @keyframes slideDown{from{opacity:0; transform:translateX(-50%) translateY(-10px);} to{opacity:1; transform:translateX(-50%) translateY(0);}}
-
-  /* 状态指示器 */
-  .status-indicator{
-    display:inline-block; width:8px; height:8px; border-radius:50%;
-    margin-left:8px; animation:pulse 2s infinite;
-  }
-  .status-indicator.active{background:var(--progress-active);}
-  .status-indicator.complete{background:var(--progress-complete);}
-  @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:0.5;}}
-
-  /* 手机端响应式布局 */
-  @media (max-width: 768px) {
-    .clan-battle-container{
-      font-size:13px;
-      padding:10px 0;
-    }
-    .wrap{width:98vw;}
-    .card{
-      padding:15px 12px 12px;
-      border-radius:12px;
+    /* ========== CSS 变量主题系统 ========== */
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --ink: #0f172a;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --accent: #667eea;
+      --accent-hover: #764ba2;
+      --accent-light: #e0e7ff;
+      --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --grid-bg: #f1f5f9;
+      --cell-bg: #ffffff;
+      --shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+      --shadow-lg: 0 10px 30px rgba(102, 126, 234, 0.15);
+      --radius: 16px;
+      --radius-sm: 8px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* 工具栏移到顶部，三个按钮并排 */
-    .toolbar{
-      position:relative;
-      top:0;
-      right:0;
-      margin-bottom:12px;
-      justify-content:center;
-      gap:6px;
-    }
-    .btn{
-      padding:8px 10px;
-      font-size:12px;
-      flex:1;
-      max-width:80px;
-    }
-    .theme-toggle{
-      width:36px;
-      height:36px;
-      font-size:16px;
-      flex:0 0 36px;
+    [data-theme="dark"] {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --ink: #f1f5f9;
+      --muted: #94a3b8;
+      --line: #334155;
+      --accent: #818cf8;
+      --accent-hover: #6366f1;
+      --accent-light: #312e81;
+      --accent-gradient: linear-gradient(135deg, #818cf8 0%, #6366f1 100%);
+      --success: #34d399;
+      --warning: #fbbf24;
+      --danger: #f87171;
+      --grid-bg: #0f172a;
+      --cell-bg: #1e293b;
+      --shadow: 0 4px 12px rgba(0,0,0,0.3);
+      --shadow-lg: 0 10px 30px rgba(0,0,0,0.4);
     }
 
-    /* 头部优化 */
-    .header{margin-bottom:12px;}
-    .logo{width:22px; height:30px;}
-    .title{font-size:18px;}
-    .vs-row{gap:6px; margin-top:4px;}
-    .vs-row .name{font-size:18px;}
-    .vs{font-size:14px; margin:0 3px;}
-    .date{font-size:13px; margin-top:3px;}
+    /* ========== 基础样式 ========== */
+    .container * { box-sizing: border-box; }
 
-    /* 编辑模式指示器优化 */
-    .edit-mode-indicator{
-      top:60px;
-      font-size:11px;
-      padding:6px 12px;
-      white-space:nowrap;
+    #clan-battle-app {
+      max-width: 1000px;
+      margin: -60px auto 0;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      position: relative;
+      z-index: 1;
     }
 
-    /* 战斗区域 */
-    .section{margin-top:14px;}
-    .sec-head{gap:6px;}
-    .badge{width:20px; height:20px; font-size:11px; border-width:1.5px;}
-    .sec-name{font-size:15px;}
-    .sec-time{font-size:15px;}
-    .bar{margin:6px 0 5px; height:6px;}
-
-    /* 网格垂直布局 - 仅在手机端显示时使用 */
-    .grid{
-      display:block;
-      padding:8px;
-      border-radius:8px;
-      font-size:11px;
-    }
-    .grid .cell{
-      display:inline-block;
-      padding:5px 8px;
-      border-radius:6px;
-      font-size:11px;
-      margin:3px;
-      min-width:70px;
-    }
-    .grid .tag{
-      display:block;
-      font-weight:700;
-      margin:8px 3px 3px;
-      background:transparent !important;
-      border:none !important;
-      padding:0 !important;
-    }
-    .grid .tag:first-child{
-      margin-top:3px;
+    #clan-battle-app[data-theme="light"] {
+      background: #f8fafc;
+      color: #0f172a;
     }
 
-    .divider{margin:12px 0;}
-  }
-
-  /* 打印和导出图片时保持原始网格布局 */
-  @media print {
-    .grid{
-      display:grid !important;
-      grid-template-columns:120px 1fr 1fr 1fr !important;
+    #clan-battle-app[data-theme="dark"] {
+      background: #0f172a;
+      color: #f1f5f9;
     }
-    .grid .cell{
-      display:block !important;
-      margin:0 !important;
-    }
-  }
 
-  /* 导出模式 - 强制使用桌面布局 */
-  .export-mode .grid{
-    display:grid !important;
-    grid-template-columns:120px 1fr 1fr 1fr !important;
-    gap:12px !important;
-    padding:10px 12px !important;
-  }
-  .export-mode .grid .cell{
-    display:block !important;
-    margin:0 !important;
-    padding:6px 10px !important;
-    min-width:auto !important;
-  }
-  .export-mode .grid .tag{
-    display:block !important;
-    background:var(--cell-bg) !important;
-    border:1px solid var(--line) !important;
-    padding:6px 10px !important;
-    margin:0 !important;
-  }
+    /* ========== 顶部工具栏 ========== */
+    .top-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      gap: 12px;
+      flex-wrap: wrap;
+      background: var(--card);
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .toolbar-left, .toolbar-right {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: var(--radius-sm);
+      background: var(--accent-gradient);
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn:active { transform: translateY(0); }
+
+    .btn.secondary { background: linear-gradient(135deg, var(--muted), var(--ink)); }
+    .btn.success { background: linear-gradient(135deg, #10b981, #059669); }
+    .btn.danger { background: linear-gradient(135deg, #ef4444, #dc2626); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .theme-toggle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 22px;
+      display: grid;
+      place-items: center;
+      transition: var(--transition);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .theme-toggle:hover {
+      transform: rotate(180deg) scale(1.1);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    /* ========== 主卡片 ========== */
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      padding: 32px;
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+
+    /* ========== 头部区域 ========== */
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+      padding: 32px 24px;
+      background: var(--accent-gradient);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .brand {
+      display: none; /* 隐藏"家族战"标题 */
+    }
+
+    .title {
+      font-size: 32px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--success));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .vs-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      margin: 0;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .clan-name {
+      font-size: 36px;
+      font-weight: 900;
+      color: #ffffff;
+      padding: 12px 32px;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      transition: var(--transition);
+      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .clan-name.editable {
+      cursor: pointer;
+    }
+
+    .clan-name.editable:hover {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .vs {
+      font-size: 32px;
+      font-weight: 900;
+      color: #ffffff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .date-display {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.9);
+      margin-top: 16px;
+      font-weight: 600;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+      }
+    }
+
+    /* ========== 战斗区域 ========== */
+    .battle-section {
+      margin: 32px 0;
+      padding: 28px;
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 2px solid transparent;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .battle-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--accent-gradient);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .battle-section:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    .battle-section:hover::before {
+      opacity: 1;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .time-display {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+      padding: 6px 16px;
+      background: var(--accent-light);
+      border-radius: var(--radius-sm);
+      border: 2px solid var(--accent);
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
+    }
+
+    /* ========== 进度条 ========== */
+    .progress-bar {
+      height: 14px;
+      background: var(--line);
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 20px 0;
+      position: relative;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent-gradient);
+      border-radius: 999px;
+      transition: width 0.5s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+    }
+
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .progress-fill.complete {
+      background: var(--success);
+    }
+
+    /* ========== 成员表格 ========== */
+    /* 团本网格：2列 */
+    .dungeon-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    /* 普通战斗网格：1列标签 + 3列成员 */
+    .members-grid.battle {
+      display: grid;
+      grid-template-columns: 100px repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    /* 单人网格：1列标签 + 1列成员（居中） */
+    .members-grid.single {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .grid-cell {
+      padding: 14px;
+      background: var(--cell-bg);
+      border: 2px solid var(--line);
+      border-radius: var(--radius-sm);
+      font-size: 15px;
+      transition: var(--transition);
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .grid-cell.header {
+      font-weight: 800;
+      background: var(--accent-gradient);
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 4px 8px rgba(102, 126, 234, 0.2);
+    }
+
+    .grid-cell.center {
+      font-weight: 600;
+    }
+
+    .grid-cell.editable {
+      cursor: pointer;
+    }
+
+    .grid-cell.editable:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-light), 0 4px 12px rgba(102, 126, 234, 0.2);
+      transform: translateY(-1px);
+      transform: scale(1.02);
+    }
+
+    .grid-cell input {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      text-align: center;
+      outline: none;
+    }
+
+    /* ========== 编辑模式指示器 ========== */
+    .edit-indicator {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--warning);
+      color: white;
+      padding: 12px 20px;
+      border-radius: var(--radius);
+      font-weight: 700;
+      box-shadow: var(--shadow-lg);
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    /* ========== 加载提示 ========== */
+    .loading-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .loading-content {
+      background: var(--card);
+      padding: 32px;
+      border-radius: var(--radius);
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid var(--line);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ========== 响应式设计 - 平板 ========== */
+    @media (max-width: 768px) {
+      #clan-battle-app { padding: 12px; margin-top: -40px; }
+
+      .top-toolbar {
+        padding: 10px 12px;
+        gap: 8px;
+      }
+
+      .btn {
+        padding: 10px 16px;
+        font-size: 13px;
+      }
+
+      .theme-toggle {
+        width: 42px;
+        height: 42px;
+        font-size: 18px;
+      }
+
+      .card { padding: 20px; }
+
+      .header {
+        padding: 24px 20px;
+        margin-bottom: 24px;
+      }
+
+      .clan-name {
+        font-size: 28px;
+        padding: 10px 24px;
+      }
+
+      .vs { font-size: 24px; }
+
+      .date-display { font-size: 16px; }
+
+      .battle-section {
+        padding: 20px;
+        margin: 24px 0;
+      }
+
+      .section-title { font-size: 18px; }
+
+      .time-display {
+        font-size: 16px;
+        padding: 5px 12px;
+      }
+
+      .members-grid.battle {
+        grid-template-columns: 80px repeat(3, 1fr);
+        gap: 6px;
+      }
+
+      .members-grid.single {
+        grid-template-columns: 80px 1fr;
+        gap: 6px;
+      }
+
+      .dungeon-grid {
+        gap: 6px;
+      }
+
+      .grid-cell {
+        padding: 10px 8px;
+        font-size: 13px;
+        min-height: 40px;
+      }
+    }
+
+    /* ========== 响应式设计 - 手机 ========== */
+    @media (max-width: 480px) {
+      #clan-battle-app { padding: 8px; margin-top: -30px; }
+
+      .top-toolbar {
+        flex-direction: column;
+        padding: 8px;
+        gap: 8px;
+      }
+
+      .toolbar-left, .toolbar-right {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .btn {
+        flex: 1;
+        padding: 10px 12px;
+        font-size: 13px;
+        min-width: 0;
+      }
+
+      .theme-toggle {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+      }
+
+      .card { padding: 16px; }
+
+      .header {
+        padding: 20px 16px;
+        margin-bottom: 20px;
+        border-radius: 12px;
+      }
+
+      .clan-name {
+        font-size: 24px;
+        padding: 8px 20px;
+      }
+
+      .vs {
+        font-size: 20px;
+        margin: 0 8px;
+      }
+
+      .date-display {
+        font-size: 15px;
+        margin-top: 12px;
+      }
+
+      .battle-section {
+        padding: 16px;
+        margin: 20px 0;
+        border-radius: 12px;
+      }
+
+      .section-header {
+        margin-bottom: 16px;
+      }
+
+      .section-title {
+        font-size: 17px;
+        gap: 8px;
+      }
+
+      .badge {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+      }
+
+      .time-display {
+        font-size: 15px;
+        padding: 4px 12px;
+      }
+
+      .progress-bar {
+        height: 12px;
+        margin: 16px 0;
+      }
+
+      .members-grid.battle {
+        grid-template-columns: 65px repeat(3, 1fr);
+        gap: 6px;
+        margin-top: 12px;
+      }
+
+      .members-grid.single {
+        grid-template-columns: 65px 1fr;
+        gap: 6px;
+        margin-top: 12px;
+      }
+
+      .dungeon-grid {
+        gap: 6px;
+        margin-top: 12px;
+      }
+
+      .grid-cell {
+        padding: 10px 6px;
+        font-size: 12px;
+        min-height: 40px;
+        border-radius: 6px;
+      }
+
+      .grid-cell.header {
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .edit-indicator {
+        top: 10px;
+        right: 10px;
+        padding: 8px 12px;
+        font-size: 12px;
+      }
+
+      .loading-overlay {
+        font-size: 16px;
+      }
+
+      .toast {
+        font-size: 14px;
+        padding: 12px 20px;
+      }
+    }
+
+    /* ========== 打印样式 ========== */
+    @media print {
+      #clan-battle-app { background: white; margin-top: 0; }
+      .top-toolbar, .edit-indicator { display: none !important; }
+      .card { box-shadow: none; }
+    }
 </style>
 
-<div class="clan-battle-container">
-  <main class="wrap">
-    <section class="card" id="capture">
-      <!-- 工具栏 -->
-      <div class="toolbar">
-        <button class="theme-toggle" onclick="toggleTheme()" title="切换主题">🌓</button>
-        <button class="btn secondary" onclick="toggleEditMode()" id="edit-btn">编辑</button>
-        <button class="btn" onclick="saveData()" id="save-btn" style="display:none;">保存</button>
-        <button class="btn" onclick="saveAsImage()">导出图片</button>
+<div id="clan-battle-app" data-theme="light">
+    <!-- 顶部工具栏 -->
+    <div class="top-toolbar">
+      <div class="toolbar-left">
+        <button class="btn" id="editBtn" onclick="toggleEdit()">✏️ 编辑</button>
+        <button class="btn success" id="saveBtn" onclick="saveData()" style="display:none;">💾 保存</button>
+        <button class="btn secondary" id="cancelBtn" onclick="cancelEdit()" style="display:none;">❌ 取消</button>
+        <button class="btn" onclick="exportImage()">📸 导出图片</button>
       </div>
+      <div class="toolbar-right">
+        <button class="btn secondary" onclick="exportData()">📤 导出数据</button>
+        <button class="btn secondary" onclick="importData()">📥 导入数据</button>
+        <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+      </div>
+    </div>
 
-      <header class="header">
+    <!-- 编辑模式指示器 -->
+    <div class="edit-indicator" id="editIndicator" style="display:none;">
+      ✏️ 编辑模式 - 点击单元格修改
+    </div>
+
+    <!-- 主内容卡片 -->
+    <div class="card" id="mainCard">
+      <!-- 头部 -->
+      <div class="header">
         <div class="brand">
-          <img src="/images/star1.png" srcset="/img/loading.gif" lazyload alt="图标" class="logo">
           <div class="title">家族战</div>
         </div>
         <div class="vs-row">
-          <div class="name">秋語</div>
+          <div class="clan-name editable" id="clan1" onclick="editClanName('clan1')">秋語</div>
           <div class="vs">VS</div>
-          <div class="name">星凝</div>
+          <div class="clan-name editable" id="clan2" onclick="editClanName('clan2')">星凝</div>
         </div>
-        <div class="date" id="battle-date"></div>
-      </header>
+        <div class="date-display" id="dateDisplay"></div>
+      </div>
 
-      <!-- 动态渲染的战斗内容 -->
-      <div id="battle-content"></div>
-    </section>
-  </main>
-</div>
+      <!-- 战斗内容区域 -->
+      <div id="battleContent"></div>
+    </div>
+  </div>
 
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-<script>
-  // ==================== 数据配置 ====================
-  const battleData = {
-    sections: [
-      {
-        id: 'team1',
-        name: '团队战',
-        time: '20:00',
-        badge: '1',
-        duration: 7,
-        groups: [
-          { label: '团本一', members: ['森林'], centered: true }
-        ]
-      },
-      {
-        id: 'vanguard',
-        name: '先锋',
-        time: '20:07',
-        duration: 13,
-        groups: []
-      },
-      {
-        id: 'vice',
-        name: '副将',
-        time: '20:20',
-        duration: 13,
-        groups: [
-          { label: '副将一', members: ['拈花（晨曦）', '无人', '九命（🥟）'] },
-          { label: '副将二', members: ['吃饭', '林墨（辣椒）', 'AC（烟雨）'] },
-          { label: '副将三', members: ['无昌（抑郁）', '富贵（若离）', '云汐（笀月）'] },
-          { label: '副将四', members: ['无魂', '叁柒（声）', '小琳琳（爱莉）'] }
-        ]
-      },
-      {
-        id: 'main',
-        name: '主将',
-        time: '20:33',
-        duration: 13,
-        groups: [
-          { label: '主将一', members: ['栩生（抑郁）', 'Shannon🥟', '王权（失心）'] },
-          { label: '主将二', members: ['无魂（爱莉）', '柳贯一（蓝凌凌）', '慌风'] }
-        ]
-      },
-      {
-        id: 'team2',
-        name: '团队战',
-        time: '20:46',
-        badge: '2',
-        duration: 7,
-        groups: [
-          { label: '团本二', members: ['蝙蝠'], centered: true }
-        ]
-      },
-      {
-        id: 'ace',
-        name: '王牌 / 头目',
-        time: '20:53 / 21:06',
-        duration: 13,
-        groups: [
-          { label: '王牌一', members: ['织雾竹（苧儿）'], centered: true },
-          { label: '王牌二', members: ['南乔（晨曦）'], centered: true },
-          { label: '王牌三', members: ['小笼包（云汐）'], centered: true },
-          { label: '王牌四', members: ['夏天（失心）'], centered: true },
-          { label: '头目', members: ['声（苧儿）'], centered: true }
-        ]
-      }
-    ]
-  };
+  <!-- 隐藏的文件输入 -->
+  <input type="file" id="fileInput" accept=".json" style="display:none;" onchange="handleFileImport(event)">
 
-  // ==================== 状态管理 ====================
-  let isEditMode = false;
-  let currentTheme = localStorage.getItem('theme') || 'light';
+  <script>
+    // ========== 全局变量 ==========
+    let isEditMode = false;
+    let currentTheme = localStorage.getItem('theme') || 'light';
+    let battleData = {
+      version: 2, // 数据版本号
+      clan1: '秋語',
+      clan2: '星凝',
+      battles: [
+        {
+          id: 1,
+          name: '团队战',
+          time: '20:00',
+          type: 'dungeon',
+          dungeonName: '团本一',
+          dungeonTarget: '森林'
+        },
+        {
+          id: 2,
+          name: '先锋',
+          time: '20:07',
+          type: 'pioneer'
+        },
+        {
+          id: 3,
+          name: '副将',
+          time: '20:20',
+          type: 'battle',
+          members: [
+            ['拈花（晨曦）', '无人', '九命（🥟）'],
+            ['吃饭', '林墨（辣椒）', 'AC（烟雨）'],
+            ['无昌（抑郁）', '富贵（若离）', '云汐（笀月）'],
+            ['无魂', '叁柒（声）', '小琳琳（爱莉）']
+          ]
+        },
+        {
+          id: 4,
+          name: '主将',
+          time: '20:33',
+          type: 'battle',
+          members: [
+            ['栩生（抑郁）', 'Shannon🥟', '王权（失心）'],
+            ['无魂（爱莉）', '柳贯一（蓝凌凌）', '慌风']
+          ]
+        },
+        {
+          id: 5,
+          name: '团队战',
+          time: '20:46',
+          type: 'dungeon',
+          dungeonName: '团本二',
+          dungeonTarget: '蝙蝠'
+        },
+        {
+          id: 6,
+          name: '王牌 / 头目',
+          time: '20:53 / 21:06',
+          type: 'single',
+          members: [
+            '织雾竹（苧儿）',
+            '南乔（晨曦）',
+            '小笼包（云汐）',
+            '夏天（失心）',
+            '声（苧儿）'
+          ]
+        }
+      ]
+    };
 
-  // ==================== 初始化 ====================
-  function init() {
-    // 应用主题
-    if (currentTheme === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
+    // ========== 初始化 ==========
+    function init() {
+      loadData();
+      applyTheme();
+      updateDate();
+      renderBattles();
+      setInterval(updateProgress, 60000); // 每分钟更新进度
     }
 
-    // 设置日期
-    updateDate();
+    // ========== 主题切换 ==========
+    function toggleTheme() {
+      currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+      applyTheme();
+      localStorage.setItem('theme', currentTheme);
+    }
 
-    // 渲染内容
-    renderBattleContent();
+    function applyTheme() {
+      const app = document.getElementById('clan-battle-app');
+      if (app) {
+        app.setAttribute('data-theme', currentTheme);
+      }
+    }
 
-    // 启动进度条更新
-    updateProgressBars();
-    setInterval(updateProgressBars, 30000); // 每30秒更新一次
+    // ========== 日期显示 ==========
+    function updateDate() {
+      const now = new Date();
+      const dateStr = `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日`;
+      document.getElementById('dateDisplay').textContent = dateStr;
+    }
 
-    // 从localStorage加载数据
-    loadSavedData();
-  }
+    // ========== 渲染战斗列表 ==========
+    function renderBattles() {
+      const container = document.getElementById('battleContent');
+      container.innerHTML = '';
 
-  // ==================== 日期处理 ====================
-  function updateDate() {
-    const dateEl = document.getElementById("battle-date");
-    const now = new Date();
-    const yyyy = now.getFullYear();
-    const mm = String(now.getMonth() + 1).padStart(2, "0");
-    const dd = String(now.getDate()).padStart(2, "0");
-    dateEl.textContent = `${yyyy}-${mm}-${dd}`;
-  }
+      battleData.battles.forEach((battle, index) => {
+        const section = document.createElement('div');
+        section.className = 'battle-section';
 
-  // ==================== 渲染内容 ====================
-  function renderBattleContent() {
-    const container = document.getElementById('battle-content');
-    container.innerHTML = battleData.sections.map(section => {
-      const badgeHtml = section.badge
-        ? `<span class="badge">${section.badge}</span>`
-        : '';
+        // 团本类型：两列布局（团本名 + 目标）
+        if (battle.type === 'dungeon') {
+          section.innerHTML = `
+            <div class="section-header">
+              <div class="section-title">
+                <span class="badge">${battle.id}</span>
+                <span>${battle.name}</span>
+              </div>
+              <div class="time-display">${battle.time}</div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-${battle.id}" style="width: 0%"></div>
+            </div>
+            <div class="dungeon-grid">
+              <div class="grid-cell editable" onclick="editDungeon('${index}', 'name')">${battle.dungeonName}</div>
+              <div class="grid-cell editable" onclick="editDungeon('${index}', 'target')">${battle.dungeonTarget}</div>
+            </div>
+          `;
+        }
+        // 先锋：只显示标题和时间
+        else if (battle.type === 'pioneer') {
+          section.innerHTML = `
+            <div class="section-header">
+              <div class="section-title">
+                <span>${battle.name}</span>
+              </div>
+              <div class="time-display">${battle.time}</div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-${battle.id}" style="width: 0%"></div>
+            </div>
+          `;
+        }
+        // 单人类型：王牌/头目（居中显示）
+        else if (battle.type === 'single') {
+          section.innerHTML = `
+            <div class="section-header">
+              <div class="section-title">
+                <span>${battle.name}</span>
+              </div>
+              <div class="time-display">${battle.time}</div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-${battle.id}" style="width: 0%"></div>
+            </div>
+            <div class="members-grid single" id="grid-${battle.id}">
+              ${renderSingleMembers(battle, index)}
+            </div>
+          `;
+        }
+        // 普通战斗类型：副将、主将（3列成员）
+        else {
+          section.innerHTML = `
+            <div class="section-header">
+              <div class="section-title">
+                <span>${battle.name}</span>
+              </div>
+              <div class="time-display">${battle.time}</div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-${battle.id}" style="width: 0%"></div>
+            </div>
+            <div class="members-grid battle" id="grid-${battle.id}">
+              ${renderMemberRows(battle, index)}
+            </div>
+          `;
+        }
+        container.appendChild(section);
+      });
 
-      const groupsHtml = section.groups.map(group => {
-        const cellsHtml = group.centered
-          ? `<div class="cell tag">${group.label}</div><div class="cell centered editable" data-section="${section.id}" data-group="${group.label}" data-index="0">${group.members[0] || ''}</div>`
-          : `<div class="cell tag">${group.label}</div>` +
-            group.members.map((member, idx) =>
-              `<div class="cell editable" data-section="${section.id}" data-group="${group.label}" data-index="${idx}">${member}</div>`
-            ).join('');
+      updateProgress();
+    }
 
-        return `<div class="grid">${cellsHtml}</div>`;
-      }).join('');
+    // 渲染单人成员（王牌、头目）- 居中显示
+    function renderSingleMembers(battle, battleIndex) {
+      const labels = ['王牌一', '王牌二', '王牌三', '王牌四', '头目'];
 
-      return `
-        <section class="section" data-section-id="${section.id}">
-          <div class="sec-head">
-            ${badgeHtml}
-            <span class="sec-name">${section.name}</span>
-            <span class="sec-time">${section.time}<span class="status-indicator" data-status="${section.id}"></span></span>
+      let html = '';
+      battle.members.forEach((member, rowIndex) => {
+        const cellId = `cell-${battleIndex}-${rowIndex}-0`;
+        html += `
+          <div class="grid-cell header">${labels[rowIndex]}</div>
+          <div class="grid-cell editable center" id="${cellId}"
+               onclick="editCell('${cellId}', ${battleIndex}, ${rowIndex}, 0)">
+            ${member || ''}
           </div>
-          <div class="bar" data-bar="${section.id}">
-            <i style="width:0%"></i>
-          </div>
-          ${groupsHtml}
-        </section>
-      `;
-    }).join('');
-  }
+        `;
+      });
+      return html;
+    }
 
-  // ==================== 进度条动态更新 ====================
-  function updateProgressBars() {
-    const now = new Date();
-    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+    // 渲染普通战斗成员（副将、主将）- 3列
+    function renderMemberRows(battle, battleIndex) {
+      const rowLabels = {
+        '副将': ['副将一', '副将二', '副将三', '副将四'],
+        '主将': ['主将一', '主将二']
+      };
 
-    battleData.sections.forEach(section => {
-      const [startHour, startMin] = section.time.split(/[:\s\/]/)[0].split(':').map(Number);
-      const startMinutes = startHour * 60 + startMin;
-      const endMinutes = startMinutes + section.duration;
+      const labels = rowLabels[battle.name] || battle.members.map((_, i) => `第${i + 1}组`);
+      let html = '';
 
-      const bar = document.querySelector(`[data-bar="${section.id}"] i`);
-      const statusIndicator = document.querySelector(`[data-status="${section.id}"]`);
+      battle.members.forEach((row, rowIndex) => {
+        html += `<div class="grid-cell header">${labels[rowIndex]}</div>`;
+        row.forEach((member, colIndex) => {
+          const cellId = `cell-${battleIndex}-${rowIndex}-${colIndex}`;
+          html += `
+            <div class="grid-cell editable" id="${cellId}"
+                 onclick="editCell('${cellId}', ${battleIndex}, ${rowIndex}, ${colIndex})">
+              ${member || ''}
+            </div>
+          `;
+        });
+      });
 
-      if (!bar) return;
+      return html;
+    }
 
-      let progress = 0;
-      let status = '';
+    // ========== 进度更新 ==========
+    function updateProgress() {
+      const now = new Date();
+      const currentTime = now.getHours() * 60 + now.getMinutes();
 
-      if (currentMinutes < startMinutes) {
-        progress = 0;
-        status = '';
-      } else if (currentMinutes >= startMinutes && currentMinutes < endMinutes) {
-        progress = ((currentMinutes - startMinutes) / section.duration) * 100;
-        status = 'active';
-        bar.classList.remove('complete');
+      battleData.battles.forEach(battle => {
+        const [startTime, endTime] = battle.time.split('-').map(t => {
+          const [h, m] = t.split(':').map(Number);
+          return h * 60 + m;
+        });
+
+        let progress = 0;
+        let isComplete = false;
+
+        if (currentTime >= endTime) {
+          progress = 100;
+          isComplete = true;
+        } else if (currentTime >= startTime) {
+          progress = ((currentTime - startTime) / (endTime - startTime)) * 100;
+        }
+
+        const progressBar = document.getElementById(`progress-${battle.id}`);
+        if (progressBar) {
+          progressBar.style.width = `${progress}%`;
+          if (isComplete) {
+            progressBar.classList.add('complete');
+          } else {
+            progressBar.classList.remove('complete');
+          }
+        }
+      });
+    }
+
+    // ========== 编辑模式 ==========
+    function toggleEdit() {
+      isEditMode = !isEditMode;
+
+      if (isEditMode) {
+        document.getElementById('editBtn').style.display = 'none';
+        document.getElementById('saveBtn').style.display = 'inline-flex';
+        document.getElementById('cancelBtn').style.display = 'inline-flex';
+        document.getElementById('editIndicator').style.display = 'block';
       } else {
-        progress = 100;
-        status = 'complete';
-        bar.classList.add('complete');
+        document.getElementById('editBtn').style.display = 'inline-flex';
+        document.getElementById('saveBtn').style.display = 'none';
+        document.getElementById('cancelBtn').style.display = 'none';
+        document.getElementById('editIndicator').style.display = 'none';
       }
-
-      bar.style.width = `${Math.min(progress, 100)}%`;
-
-      if (statusIndicator) {
-        statusIndicator.className = 'status-indicator';
-        if (status) statusIndicator.classList.add(status);
-      }
-    });
-  }
-
-  // ==================== 主题切换 ====================
-  function toggleTheme() {
-    currentTheme = currentTheme === 'light' ? 'dark' : 'light';
-    if (currentTheme === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    } else {
-      document.documentElement.removeAttribute('data-theme');
     }
-    localStorage.setItem('theme', currentTheme);
-  }
 
-  // ==================== 编辑模式 ====================
-  function toggleEditMode() {
-    isEditMode = !isEditMode;
-    const card = document.getElementById('capture');
-    const editBtn = document.getElementById('edit-btn');
-    const saveBtn = document.getElementById('save-btn');
-
-    if (isEditMode) {
-      card.classList.add('edit-mode');
-      editBtn.textContent = '取消';
-      editBtn.classList.remove('secondary');
-      saveBtn.style.display = 'block';
-
-      const indicator = document.createElement('div');
-      indicator.className = 'edit-mode-indicator';
-      indicator.id = 'edit-indicator';
-      indicator.textContent = '✏️ 编辑模式：点击单元格进行编辑';
-      document.body.appendChild(indicator);
-
-      document.querySelectorAll('.cell.editable').forEach(cell => {
-        cell.addEventListener('click', makeEditable);
-      });
-    } else {
-      card.classList.remove('edit-mode');
-      editBtn.textContent = '编辑';
-      editBtn.classList.add('secondary');
-      saveBtn.style.display = 'none';
-
-      const indicator = document.getElementById('edit-indicator');
-      if (indicator) indicator.remove();
-
-      document.querySelectorAll('.cell.editable').forEach(cell => {
-        cell.removeEventListener('click', makeEditable);
-      });
+    function saveData() {
+      localStorage.setItem('battleData', JSON.stringify(battleData));
+      toggleEdit();
+      showToast('✅ 保存成功！');
     }
-  }
 
-  function makeEditable(e) {
-    if (!isEditMode) return;
+    function cancelEdit() {
+      loadData();
+      renderBattles();
+      toggleEdit();
+      showToast('❌ 已取消编辑');
+    }
 
-    const cell = e.currentTarget;
-    const currentText = cell.textContent;
-
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.value = currentText;
-    input.style.width = '100%';
-
-    cell.textContent = '';
-    cell.appendChild(input);
-    input.focus();
-    input.select();
-
-    function finishEdit() {
-      const newValue = input.value;
-      cell.textContent = newValue;
-
-      const sectionId = cell.dataset.section;
-      const groupLabel = cell.dataset.group;
-      const memberIndex = parseInt(cell.dataset.index);
-
-      const section = battleData.sections.find(s => s.id === sectionId);
-      if (section) {
-        const group = section.groups.find(g => g.label === groupLabel);
-        if (group && group.members[memberIndex] !== undefined) {
-          group.members[memberIndex] = newValue;
+    function loadData() {
+      const saved = localStorage.getItem('battleData');
+      if (saved) {
+        try {
+          const savedData = JSON.parse(saved);
+          // 检查版本号，如果版本不匹配则不加载旧数据
+          if (savedData.version === 2) {
+            battleData = savedData;
+            document.getElementById('clan1').textContent = battleData.clan1;
+            document.getElementById('clan2').textContent = battleData.clan2;
+          } else {
+            // 版本不匹配，清除旧数据
+            localStorage.removeItem('battleData');
+            console.log('数据版本已更新，已清除旧数据');
+          }
+        } catch (e) {
+          console.error('加载数据失败:', e);
         }
       }
     }
 
-    input.addEventListener('blur', finishEdit);
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        finishEdit();
-      } else if (e.key === 'Escape') {
-        cell.textContent = currentText;
-      }
-    });
-  }
+    // ========== 编辑单元格 ==========
+    function editCell(cellId, battleIndex, rowIndex, colIndex) {
+      if (!isEditMode) return;
 
-  // ==================== 数据保存与加载 ====================
-  function saveData() {
-    localStorage.setItem('battleData', JSON.stringify(battleData));
+      const cell = document.getElementById(cellId);
+      const currentValue = cell.textContent;
+      const battle = battleData.battles[battleIndex];
 
-    const indicator = document.getElementById('edit-indicator');
-    if (indicator) {
-      const originalText = indicator.textContent;
-      indicator.textContent = '✅ 保存成功！';
+      cell.innerHTML = `<input type="text" value="${currentValue}" id="input-${cellId}">`;
+      const input = document.getElementById(`input-${cellId}`);
+      input.focus();
+      input.select();
+
+      input.onblur = () => {
+        const newValue = input.value.trim() || currentValue;
+
+        // 单人模式（王牌、头目）
+        if (battle.type === 'single') {
+          battle.members[rowIndex] = newValue;
+        }
+        // 普通模式（副将、主将）
+        else {
+          battle.members[rowIndex][colIndex] = newValue;
+        }
+
+        cell.textContent = newValue;
+      };
+
+      input.onkeydown = (e) => {
+        if (e.key === 'Enter') {
+          input.blur();
+        } else if (e.key === 'Escape') {
+          cell.textContent = currentValue;
+        }
+      };
+    }
+
+    // ========== 编辑团本 ==========
+    function editDungeon(battleIndex, field) {
+      if (!isEditMode) return;
+
+      const battle = battleData.battles[battleIndex];
+      const currentValue = field === 'name' ? battle.dungeonName : battle.dungeonTarget;
+
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = `<input type="text" value="${currentValue}" style="width: 100%; padding: 12px; font-size: 14px; border: 2px solid var(--accent); border-radius: 8px; background: var(--card); color: var(--ink); text-align: center;">`;
+      const input = tempDiv.firstChild;
+
+      event.target.textContent = '';
+      event.target.appendChild(input);
+      input.focus();
+      input.select();
+
+      input.onblur = () => {
+        const newValue = input.value.trim() || currentValue;
+        if (field === 'name') {
+          battle.dungeonName = newValue;
+        } else {
+          battle.dungeonTarget = newValue;
+        }
+        event.target.textContent = newValue;
+      };
+
+      input.onkeydown = (e) => {
+        if (e.key === 'Enter') {
+          input.blur();
+        } else if (e.key === 'Escape') {
+          event.target.textContent = currentValue;
+        }
+      };
+    }
+
+    // ========== 编辑家族名称 ==========
+    function editClanName(clanId) {
+      if (!isEditMode) return;
+
+      const elem = document.getElementById(clanId);
+      const currentValue = elem.textContent;
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.value = currentValue;
+      input.style.cssText = 'font-size: 28px; font-weight: 800; text-align: center; border: 2px solid var(--accent); border-radius: 8px; padding: 8px 16px; background: var(--card); color: var(--ink);';
+
+      elem.textContent = '';
+      elem.appendChild(input);
+      input.focus();
+      input.select();
+
+      input.onblur = () => {
+        const newValue = input.value.trim() || currentValue;
+        battleData[clanId] = newValue;
+        elem.textContent = newValue;
+      };
+
+      input.onkeydown = (e) => {
+        if (e.key === 'Enter') {
+          input.blur();
+        } else if (e.key === 'Escape') {
+          elem.textContent = currentValue;
+        }
+      };
+    }
+
+    // ========== 导出图片 ==========
+    function exportImage() {
+      showLoading('正在生成图片...');
+
+      // 隐藏工具栏和编辑指示器
+      const toolbar = document.querySelector('.top-toolbar');
+      const indicator = document.getElementById('editIndicator');
+      toolbar.style.display = 'none';
+      indicator.style.display = 'none';
+
       setTimeout(() => {
-        indicator.textContent = originalText;
+        html2canvas(document.getElementById('mainCard'), {
+          scale: 2,
+          backgroundColor: currentTheme === 'dark' ? '#1e293b' : '#ffffff',
+          useCORS: true,
+          logging: false
+        }).then(canvas => {
+          const now = new Date();
+          const dateStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+
+          canvas.toBlob(blob => {
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.download = `族战排表_${dateStr}.png`;
+            link.href = url;
+            link.click();
+            URL.revokeObjectURL(url);
+
+            hideLoading();
+            showToast('✅ 图片已保存！');
+          }, 'image/png', 0.95);
+        }).catch(error => {
+          console.error('导出失败:', error);
+          hideLoading();
+          showToast('❌ 导出失败，请重试');
+        }).finally(() => {
+          toolbar.style.display = 'flex';
+          if (isEditMode) indicator.style.display = 'block';
+        });
+      }, 100);
+    }
+
+    // ========== 导出数据 ==========
+    function exportData() {
+      const dataStr = JSON.stringify(battleData, null, 2);
+      const blob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      const now = new Date();
+      const dateStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+      link.download = `族战数据_${dateStr}.json`;
+      link.href = url;
+      link.click();
+      URL.revokeObjectURL(url);
+      showToast('✅ 数据已导出！');
+    }
+
+    // ========== 导入数据 ==========
+    function importData() {
+      document.getElementById('fileInput').click();
+    }
+
+    function handleFileImport(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (data.clan1 && data.clan2 && data.battles) {
+            battleData = data;
+            localStorage.setItem('battleData', JSON.stringify(battleData));
+            document.getElementById('clan1').textContent = battleData.clan1;
+            document.getElementById('clan2').textContent = battleData.clan2;
+            renderBattles();
+            showToast('✅ 数据导入成功！');
+          } else {
+            showToast('❌ 数据格式错误');
+          }
+        } catch (error) {
+          console.error('导入失败:', error);
+          showToast('❌ 导入失败，请检查文件');
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = ''; // 清空input，允许重复导入同一文件
+    }
+
+    // ========== 提示消息 ==========
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--card);
+        color: var(--ink);
+        padding: 16px 24px;
+        border-radius: 12px;
+        box-shadow: var(--shadow-lg);
+        font-size: 16px;
+        font-weight: 600;
+        z-index: 10000;
+        animation: fadeInOut 2s ease;
+      `;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.remove();
       }, 2000);
     }
-  }
 
-  function loadSavedData() {
-    const saved = localStorage.getItem('battleData');
-    if (saved) {
-      try {
-        const loadedData = JSON.parse(saved);
-        loadedData.sections.forEach((savedSection, idx) => {
-          if (battleData.sections[idx]) {
-            savedSection.groups.forEach((savedGroup, gIdx) => {
-              if (battleData.sections[idx].groups[gIdx]) {
-                battleData.sections[idx].groups[gIdx].members = savedGroup.members;
-              }
-            });
-          }
-        });
-        renderBattleContent();
-      } catch (e) {
-        console.error('加载数据失败:', e);
-      }
+    // ========== 加载提示 ==========
+    function showLoading(message) {
+      const overlay = document.createElement('div');
+      overlay.id = 'loadingOverlay';
+      overlay.className = 'loading-overlay';
+      overlay.innerHTML = `
+        <div class="loading-content">
+          <div class="spinner"></div>
+          <div style="font-size: 16px; font-weight: 600; color: var(--ink);">${message}</div>
+        </div>
+      `;
+      document.body.appendChild(overlay);
     }
-  }
 
-  // ==================== 导出图片 ====================
-  function saveAsImage() {
-    const card = document.getElementById("capture");
-    const toolbar = document.querySelector(".toolbar");
-    const indicators = document.querySelectorAll('.status-indicator');
-    const editIndicator = document.getElementById('edit-indicator');
+    function hideLoading() {
+      const overlay = document.getElementById('loadingOverlay');
+      if (overlay) overlay.remove();
+    }
 
-    // 隐藏工具栏和指示器
-    toolbar.style.display = "none";
-    indicators.forEach(ind => ind.style.display = 'none');
-    if (editIndicator) editIndicator.style.display = 'none';
-
-    // 添加导出模式类，强制使用桌面布局
-    card.classList.add('export-mode');
-
-    // 生成图片
-    setTimeout(() => {
-      html2canvas(card, {
-        scale: 2,
-        backgroundColor: currentTheme === 'dark' ? '#1e293b' : '#ffffff',
-        useCORS: true,
-        allowTaint: false,
-        logging: false,
-        width: card.scrollWidth,
-        height: card.scrollHeight
-      }).then(canvas => {
-        const now = new Date();
-        const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
-
-        canvas.toBlob(blob => {
-          if (!blob) {
-            alert('图片生成失败，请重试');
-            // 恢复
-            card.classList.remove('export-mode');
-            toolbar.style.display = "flex";
-            indicators.forEach(ind => ind.style.display = 'inline-block');
-            if (editIndicator) editIndicator.style.display = 'block';
-            return;
-          }
-
-          const url = URL.createObjectURL(blob);
-          const link = document.createElement("a");
-          link.download = `家族战排表_${dateStr}.png`;
-          link.href = url;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-
-          setTimeout(() => URL.revokeObjectURL(url), 100);
-
-          // 恢复显示
-          card.classList.remove('export-mode');
-          toolbar.style.display = "flex";
-          indicators.forEach(ind => ind.style.display = 'inline-block');
-          if (editIndicator) editIndicator.style.display = 'block';
-        }, 'image/png', 0.95);
-      }).catch(error => {
-        console.error('生成图片失败:', error);
-        alert('生成图片失败，请重试');
-
-        // 恢复显示
-        card.classList.remove('export-mode');
-        toolbar.style.display = "flex";
-        indicators.forEach(ind => ind.style.display = 'inline-block');
-        if (editIndicator) editIndicator.style.display = 'block';
-      });
-    }, 100);
-  }
-
-  // ==================== 启动应用 ====================
-  window.addEventListener('DOMContentLoaded', init);
+    // ========== 页面加载完成后初始化 ==========
+    window.addEventListener('DOMContentLoaded', init);
 </script>
+
+<style>
+  @keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    10%, 90% { opacity: 1; }
+  }
+</style>
+</div>
+
 
 
   
